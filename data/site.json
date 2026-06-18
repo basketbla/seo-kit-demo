@@ -1,0 +1,23 @@
+{
+  "siteName": "EXAMPLE TOOL",
+  "baseUrl": "https://basketbla.github.io/seo-kit-demo",
+  "tagline": "A fast, free example tool.",
+  "description": "Placeholder description for the demo build. Swap this whole file per niche.",
+  "themeColor": "#0b5cff",
+  "pages": [
+    {
+      "slug": "index",
+      "title": "EXAMPLE TOOL — fast free utility",
+      "h1": "Example Tool",
+      "intro": "This is the homepage. Replace data/site.json with the real niche.",
+      "body": "<p>Programmatic-SEO scaffold. Each entry in <code>pages</code> becomes a static, indexable HTML page with its own title, meta description, canonical URL, and JSON-LD.</p>"
+    },
+    {
+      "slug": "example-long-tail-term",
+      "title": "Example Long-Tail Term — Example Tool",
+      "h1": "Example Long-Tail Term",
+      "intro": "One page per long-tail search term. This is how you capture cheap organic traffic.",
+      "body": "<p>Fill <code>body</code> with genuinely useful content for this term. Thin/duplicate pages get deindexed — each page must earn its keep.</p>"
+    }
+  ]
+}
