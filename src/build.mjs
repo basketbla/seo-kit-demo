@@ -22,14 +22,27 @@ const urlFor = (slug) => (slug === "index" ? `${base}/` : `${base}/${slug}.html`
 function render(page) {
   const desc = page.intro || site.description || "";
   const canonical = urlFor(page.slug);
-  const jsonld = {
-    "@context": "https://schema.org",
-    "@type": "WebPage",
-    name: page.title,
-    description: desc,
-    url: canonical,
-    isPartOf: { "@type": "WebSite", name: site.siteName, url: `${base}/` },
-  };
+  const graph = [
+    {
+      "@type": "WebPage",
+      name: page.title,
+      description: desc,
+      url: canonical,
+      isPartOf: { "@type": "WebSite", name: site.siteName, url: `${base}/` },
+    },
+  ];
+  const faq = Array.isArray(page.faq) ? page.faq : [];
+  if (faq.length) {
+    graph.push({
+      "@type": "FAQPage",
+      mainEntity: faq.map((f) => ({
+        "@type": "Question",
+        name: f.q,
+        acceptedAnswer: { "@type": "Answer", text: f.a },
+      })),
+    });
+  }
+  const jsonld = { "@context": "https://schema.org", "@graph": graph };
   return `<!doctype html>
 <html lang="en">
 <head>
@@ -50,6 +63,9 @@ function render(page) {
 header,main,footer{max-width:760px;margin:0 auto;padding:1rem 1.25rem}
 header{border-bottom:1px solid #eee}a{color:var(--c)}h1{margin:.2em 0}
 nav a{margin-right:1rem;font-size:.95rem}footer{color:#777;font-size:.85rem;border-top:1px solid #eee;margin-top:2rem}
+.faq{margin-top:2rem}.faq details{border:1px solid #eee;border-radius:8px;padding:.6rem .9rem;margin:.5rem 0}
+.faq summary{cursor:pointer;font-weight:600}
+.mon{margin-top:1.5rem;padding:1rem;border:1px dashed var(--c);border-radius:8px;background:#f6f9ff;font-size:.95rem}
 </style>
 </head>
 <body>
@@ -61,6 +77,8 @@ nav a{margin-right:1rem;font-size:.95rem}footer{color:#777;font-size:.85rem;bord
 <h1>${esc(page.h1)}</h1>
 <p>${esc(page.intro || "")}</p>
 ${page.body || ""}
+${faq.length ? `<section class="faq"><h2>FAQ</h2>${faq.map((f) => `<details><summary>${esc(f.q)}</summary><p>${esc(f.a)}</p></details>`).join("")}</section>` : ""}
+${page.cta || site.cta ? `<aside class="mon" data-slot="monetization">${page.cta || site.cta}</aside>` : ""}
 </main>
 <footer>${esc(site.tagline || "")} · ${esc(site.siteName)}</footer>
 </body>

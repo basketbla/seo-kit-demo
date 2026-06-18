@@ -17,7 +17,12 @@
       "title": "Example Long-Tail Term — Example Tool",
       "h1": "Example Long-Tail Term",
       "intro": "One page per long-tail search term. This is how you capture cheap organic traffic.",
-      "body": "<p>Fill <code>body</code> with genuinely useful content for this term. Thin/duplicate pages get deindexed — each page must earn its keep.</p>"
+      "body": "<p>Fill <code>body</code> with genuinely useful content for this term. Thin/duplicate pages get deindexed — each page must earn its keep.</p>",
+      "faq": [
+        { "q": "How does the FAQ block help SEO?", "a": "It emits FAQPage JSON-LD, which can earn expandable rich results in Google and answer-engine citations." },
+        { "q": "Where does monetization go?", "a": "The optional cta/monetization slot below — drop an affiliate link or ad unit there per niche." }
+      ],
+      "cta": "<strong>Monetization slot:</strong> affiliate link / ad unit / donation CTA goes here."
     }
   ]
 }
